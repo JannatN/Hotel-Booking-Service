@@ -1,29 +1,29 @@
 const db = require("../models");
 const Booking = db.bookings;
+const Rooms = db.rooms;
 
 
 const getAllBookings = (req, res) => {
     Booking.findAll()
-            .then(data => {
-                res.send({   
-                    'data': data,
-                    'message': "list of booked rooms",
-                    'status': 200
-                });
-    
-            })
-            .catch(err => {
-                res.status(500).send({
-                    message:
-                        err.message || "Some error occurred while retrieving booked rooms."
-                });
+        .then(data => {
+            res.send({
+                'data': data,
+                'message': "list of booked rooms",
+                'status': 200
             });
-    
-    
-    }
+
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while retrieving booked rooms."
+            });
+        });
+
+
+}
 const bookRoom = (req, res) => {
 
-    
     const bookedRoom = {
         bookingID: req.body.bookingID,
         roomID: req.body.roomID,
@@ -32,7 +32,9 @@ const bookRoom = (req, res) => {
         checkOut: req.body.checkOut
 
     };
-
+    Rooms.update({ isAvailable: 1 }, {
+        where: { room_ID: req.body.room_ID }
+    })
     Booking.create(bookedRoom)
         .then(data => {
             res.send(data);
@@ -45,7 +47,7 @@ const bookRoom = (req, res) => {
         });
 
 }
-const cancelReservation = (req, res) =>  {
+const cancelReservation = (req, res) => {
 
     const bookingID = req.params.bookingID;
 

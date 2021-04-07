@@ -1,5 +1,4 @@
 const Booking = require("./booking");
-const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize, Sequelize) => {
     const Room = sequelize.define("room", {
@@ -29,10 +28,13 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER,
             allowNull: false,
 
+        },
+        isAvailable: {
+            type: Sequelize.BOOLEAN,
+            allowNull: false,
         }
-    }, {
-        timestamps: false,
-    });
+    },
+        { timestamps: false })
 
 
     return Room;

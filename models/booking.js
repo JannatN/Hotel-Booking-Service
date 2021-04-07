@@ -1,6 +1,4 @@
 const Room = require("./room");
-const { DataTypes } = require('sequelize');
-
 module.exports = (sequelize, Sequelize) => {
     const Booking = sequelize.define('booking', {
         bookingID: {
@@ -30,19 +28,12 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false
 
         },
-        // isAvailable: {
-        //     type: Sequelize.BOOLEAN,
-        //     allowNull: false,
 
-
-        // }
     }, {
         timestamps: false,
     });
-  
-    // Booking.associate = function (models) {
-    //     Booking.hasMany(models.Room, { foreignKey: 'roomID' });
-    // };
+
+
     return Booking;
 
 };

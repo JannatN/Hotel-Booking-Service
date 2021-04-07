@@ -52,14 +52,11 @@ const addRoom = function (req, res) {
 
 const getAvailableRooms = function (req, res) {  // (req, res)=>{  
     const roomID = req.query.roomID ? req.query.roomID : "";
-    const checkIN = req.query.checkIN ? req.query.checkIN : "";
-    const checkOut = req.query.checkOut ? req.query.checkOut : "";
-    var condition = bookedRoom.is_available = false ?
-        { Room } :null   ;
-    // { is_available: false, date: { $gte: checkIN, $lt: checkOut } }
+
+    //    var condition = {isAvialable: false};
 
     Room.findAll({
-        where: condition
+        where: { isAvailable: 0 }
 
     })
         .then(data => {
@@ -77,4 +74,21 @@ const getAvailableRooms = function (req, res) {  // (req, res)=>{
         });
 
 }
-module.exports = { getAvailableRooms, addRoom }
+const getRoomsByID = (req, res) => {
+
+    Rooms.findByPk(req.params.id)
+        .then(data => {
+            res.send({
+                data: data,
+                msg: "This is the findByPK"
+            });
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while retrieving Rooms."
+            });
+        });
+
+}
+module.exports = { getAvailableRooms, addRoom, getRoomsByID }
