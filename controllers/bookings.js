@@ -32,11 +32,12 @@ const bookRoom = (req, res) => {
         checkOut: req.body.checkOut
 
     };
-    Rooms.update({ isAvailable: 1 }, {
-        where: { room_ID: req.body.room_ID }
-    })
+
     Booking.create(bookedRoom)
         .then(data => {
+            Rooms.update({ isAvailable: 0 }, {
+                where: { room_ID: req.body.room_ID }
+            })
             res.send(data);
         })
         .catch(err => {

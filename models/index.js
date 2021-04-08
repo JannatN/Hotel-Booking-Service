@@ -23,7 +23,7 @@ db.rooms = require("./room.js")(sequelize, Sequelize);
 db.bookings = require("./booking.js")(sequelize, Sequelize);
 
 // db.rooms.belongsTo(db.bookings);
-db.bookings.hasMany(db.rooms, {
+db.rooms.hasMany(db.bookings, {
   foreignKey: "roomID",
   as: "roomid",
 });

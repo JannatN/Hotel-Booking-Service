@@ -1,27 +1,7 @@
 const db = require("../models");
 const Room = db.rooms;
-const bookedRoom = db.bookings;
 
-// const getRooms = (req, res) => {
-//     Room.findAll()
-//         .then(data => {
-//             res.send({   // send it as json, not as array of objs
-//                 'data': data,
-//                 'message': "list of rooms",
-//                 'status': 200
-//             });
-
-//         })
-//         .catch(err => {
-//             res.status(500).send({
-//                 message:
-//                     err.message || "Some error occurred while retrieving rooms."
-//             });
-//         });
-
-
-// }
-const addRoom = function (req, res) {
+const addRoom = (req, res) => {
 
     // Create a room
     const room = {
@@ -50,13 +30,10 @@ const addRoom = function (req, res) {
 
 }
 
-const getAvailableRooms = function (req, res) {  // (req, res)=>{  
-    const roomID = req.query.roomID ? req.query.roomID : "";
-
-    //    var condition = {isAvialable: false};
+const getAvailableRooms = (req, res) => {
 
     Room.findAll({
-        where: { isAvailable: 0 }
+        where: { isAvailable: 1 }
 
     })
         .then(data => {
@@ -74,9 +51,9 @@ const getAvailableRooms = function (req, res) {  // (req, res)=>{
         });
 
 }
-const getRoomsByID = (req, res) => {
+const getRoomByID = (req, res) => {
 
-    Rooms.findByPk(req.params.id)
+    Room.findByPk(req.params.id)
         .then(data => {
             res.send({
                 data: data,
@@ -91,4 +68,4 @@ const getRoomsByID = (req, res) => {
         });
 
 }
-module.exports = { getAvailableRooms, addRoom, getRoomsByID }
+module.exports = { getAvailableRooms, addRoom, getRoomByID }

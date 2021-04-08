@@ -6,6 +6,7 @@ const Room = db.rooms;
 
 const roomsController = require("../controllers/rooms");
 router.get('/rooms', roomsController.getAvailableRooms);
+router.get('/:id', roomsController.getRoomByID);
 router.post('/rooms',roomsController.addRoom);
 
 
