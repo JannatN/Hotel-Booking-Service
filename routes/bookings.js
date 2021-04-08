@@ -4,8 +4,10 @@ var router = express.Router();
 
 
 const bookController = require("../controllers/bookings")
-router.get('/', bookController.getAllBookings);
-router.post('/', bookController.bookRoom);
+router.get('/bookedRooms', bookController.getAllBookings);
+router.post('/bookRoom', bookController.bookRoom);
+router.put('/updateReservation/:id', bookController.updateReservation);
 router.delete('/:id', bookController.cancelReservation);
+
 
 module.exports = router;

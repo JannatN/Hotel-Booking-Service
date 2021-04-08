@@ -68,4 +68,51 @@ const getRoomByID = (req, res) => {
         });
 
 }
-module.exports = { getAvailableRooms, addRoom, getRoomByID }
+const deleteRoom = (req, res) => {
+
+    const roomid = req.params.id;
+    Room.destroy({
+        where: { roomid: roomid }
+    })
+        .then(num => {
+            if (num == 1) {
+                res.send({
+                    message: "The room was deleted successfully."
+                });
+            } else {
+                res.send({
+                    message: `Cannot delete room, Maybe it was not found!`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error deleting room"
+            });
+        });
+}
+const updateRoom = (req, res) => {
+    const roomid = req.params.id;
+
+    Room.update(req.body, {
+        where: { roomid: roomid }
+    })
+        .then(num => {
+            if (num == 1) {
+                res.send({
+                    message: "Room was updated successfully."
+                });
+            } else {
+                res.send({
+                    message: `Cannot update room with id=${id}. Maybe room was not found or req.body is empty!`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error updating room with id=" + id
+            });
+        });
+}
+
+module.exports = { getAvailableRooms, addRoom, getRoomByID, deleteRoom, updateRoom }
