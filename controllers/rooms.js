@@ -10,6 +10,7 @@ const addRoom = (req, res) => {
         roomType: req.body.roomType,
         description: req.body.description,
         capacity: req.body.capacity,
+        isAvailable: req.body.isAvailable
     };
 
     // Save room in the database
@@ -33,7 +34,7 @@ const addRoom = (req, res) => {
 const getAvailableRooms = (req, res) => {
 
     Room.findAll({
-        where: { isAvailable: 1 }
+        where: { isAvailable: true }
 
     })
         .then(data => {

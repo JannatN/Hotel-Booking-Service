@@ -31,7 +31,7 @@ module.exports = (sequelize, Sequelize) => {
         },
         isAvailable: {
             type: Sequelize.BOOLEAN,
-            // allowNull: false,
+            allowNull: false,
         }
     },
         { timestamps: false })

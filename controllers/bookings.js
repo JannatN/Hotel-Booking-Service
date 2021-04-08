@@ -32,12 +32,12 @@ const bookRoom = (req, res) => {
         checkOut: req.body.checkOut
 
     };
-
+    Rooms.update({ isAvailable: false }, {
+        where: { roomID: req.body.roomID }
+    })
     Booking.create(bookedRoom)
         .then(data => {
-            Rooms.update({ isAvailable: 0 }, {
-                where: { room_ID: req.body.room_ID }
-            })
+
             res.send(data);
         })
         .catch(err => {
@@ -74,7 +74,7 @@ const cancelReservation = (req, res) => {
 const updateReservation = function (req, res) {
     const bookedroom = req.params.id;
 
-    Booking.update(req.body, { 
+    Booking.update(req.body, {
         where: { bookedroom: bookedroom }
     })
         .then(num => {
