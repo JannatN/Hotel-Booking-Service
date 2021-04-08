@@ -50,8 +50,7 @@ const bookRoom = (req, res) => {
 }
 const cancelReservation = (req, res) => {
 
-    const bookingID = req.params.bookingID;
-
+    const bookingID = req.params.id;
     Booking.destroy({
         where: { bookingID: bookingID }
     })
