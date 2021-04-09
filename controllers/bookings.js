@@ -71,28 +71,5 @@ const cancelReservation = (req, res) => {
             });
         });
 }
-const updateReservation = function (req, res) {
-    const bookedroom = req.params.id;
 
-    Booking.update(req.body, {
-        where: { bookedroom: bookedroom }
-    })
-        .then(num => {
-            if (num == 1) {
-                res.send({
-                    message: "Booking was updated successfully."
-                });
-            } else {
-                res.send({
-                    message: `Cannot update Booking with id=${id}. Maybe Booking was not found or req.body is empty!`
-                });
-            }
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: "Error updating Booking with id=" + id
-            });
-        });
-
-}
-module.exports = { getAllBookings, bookRoom, cancelReservation, updateReservation }
+module.exports = { getAllBookings, bookRoom, cancelReservation }

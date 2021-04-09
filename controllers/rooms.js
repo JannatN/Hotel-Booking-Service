@@ -30,6 +30,24 @@ const addRoom = (req, res) => {
         });
 
 }
+const getAllRooms = (req, res) => {
+
+    Room.findAll()
+        .then(data => {
+            res.send({
+                'data': data,
+                'message': "All rooms retrieved successfully",
+                'status': 200
+            });
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while retrieving rooms."
+            });
+        });
+
+}
 
 const getAvailableRooms = (req, res) => {
 
@@ -58,13 +76,13 @@ const getRoomByID = (req, res) => {
         .then(data => {
             res.send({
                 data: data,
-                msg: "This is the findByPK"
+                msg: "The room is found"
             });
         })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while retrieving Rooms."
+                    err.message || "Some error occurred while retrieving the Room."
             });
         });
 
@@ -116,4 +134,4 @@ const updateRoom = (req, res) => {
         });
 }
 
-module.exports = { getAvailableRooms, addRoom, getRoomByID, deleteRoom, updateRoom }
+module.exports = { getAvailableRooms, addRoom, getRoomByID, deleteRoom, updateRoom, getAllRooms }
